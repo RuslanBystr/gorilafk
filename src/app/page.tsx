@@ -7,7 +7,7 @@ export default function Home() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        background: '#000',
+        background: '#222',
         overflow: 'hidden'
       }}>
         <img
