@@ -20,15 +20,14 @@ export default function Home() {
                         }
                     }}
                 >
-                    <div className="face front">👆 Доторкнись</div>
+                    <div className="face front">
+            <span className={`label ${!flipped ? 'bounce-loop' : ''}`}>
+              👆 Доторкнись
+            </span>
+                    </div>
 
                     <div className="face back">
-                        <img
-                            src="/f-u-middle-finger.gif"
-                            alt="Hero"
-                            className="hero"
-                            draggable={false}
-                        />
+                        <img src="/fk.jpg" alt="Hero" className="hero" draggable={false} />
                     </div>
                 </div>
             </div>
@@ -36,7 +35,6 @@ export default function Home() {
             <style>{`
         :root {
           --card-max-w: 360px;
-          --card-aspect: 0.727; /* height = width / aspect -> 360 * 0.727 ≈ 262, we'll use aspect-ratio instead */
         }
 
         .root{
@@ -47,8 +45,6 @@ export default function Home() {
           justify-content:center;
           background: linear-gradient(135deg, #071129 0%, #0f172a 40%, #1e293b 100%);
           overflow:hidden;
-          -webkit-font-smoothing:antialiased;
-          -moz-osx-font-smoothing:grayscale;
         }
 
         .scene{
@@ -75,20 +71,8 @@ export default function Home() {
           user-select: none;
         }
 
-        .card:focus{
-          outline: 3px solid rgba(14,165,233,0.2);
-          outline-offset: 6px;
-        }
-
         .card.is-flipped{
           transform: rotateY(180deg);
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-          .card:hover{
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 20px 60px rgba(2,6,23,0.7), 0 0 28px rgba(14,165,233,0.28);
-          }
         }
 
         .face{
@@ -110,6 +94,14 @@ export default function Home() {
           text-shadow: 0 2px 10px rgba(0,0,0,0.45);
         }
 
+        .front .label{
+          display:inline-block;
+          padding:12px 18px;
+          border-radius:12px;
+          background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+          transform-origin:center;
+        }
+
         .back{
           transform: rotateY(180deg);
           background: linear-gradient(145deg, rgba(14,165,233,0.06), rgba(30,41,59,0.9));
@@ -120,13 +112,21 @@ export default function Home() {
         .hero{
           width:100%;
           height:100%;
-          max-width:100%;
-          max-height:100%;
           object-fit:contain;
           border-radius:12px;
           display:block;
-          pointer-events:none;
-          user-select:none;
+        }
+
+        @keyframes bounceLoop {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          20% { transform: translateY(-14px) rotate(-3deg); }
+          40% { transform: translateY(3px) rotate(2deg); }
+          60% { transform: translateY(-6px) rotate(-1deg); }
+          80% { transform: translateY(1px) rotate(0.5deg); }
+        }
+
+        .bounce-loop {
+          animation: bounceLoop 2s cubic-bezier(.25,1,.3,1) infinite;
         }
 
         @media (max-width:420px){
@@ -136,6 +136,12 @@ export default function Home() {
             border-radius:14px;
           }
           .front{ font-size: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .bounce-loop {
+            animation: none !important;
+          }
         }
       `}</style>
         </main>
